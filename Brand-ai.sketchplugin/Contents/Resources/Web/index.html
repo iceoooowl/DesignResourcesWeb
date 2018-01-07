@@ -1,0 +1,29 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+
+</head>
+
+<body>
+  <div id="main"></div>
+  <script src="ref.js"></script>
+
+  <script>
+    // Load bundle script with random param so it is never cached.
+    var cacheBust = Math.random().toString(36).substr(2, 10);
+
+    var addDynamicScript = function(src){
+      var vendorScript = document.createElement('script');
+      vendorScript.src =  src + '?' + cacheBust;
+      vendorScript.async = false;
+      document.body.appendChild(vendorScript);
+    }
+
+    //load vendor bundle, need to be loaded first
+    addDynamicScript('vendor.bundle.js');
+
+    //load the application bundle
+    addDynamicScript('app.bundle.js');
+
+  </script>
+</body>
